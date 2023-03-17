@@ -1,5 +1,11 @@
 import Feedback from "./Feedback/Feedback";
 
+const state = {
+        good: 0,
+        neutral: 0,
+        bad: 0
+    };
+
 export const App = () => {
   return (
     <div
@@ -12,7 +18,12 @@ export const App = () => {
         // color: '#010101'
       }}
     >
+<<<<<<< Updated upstream
       <Feedback/>
+=======
+      <Feedback state={ state } />
+      
+>>>>>>> Stashed changes
     </div>
   );
 };

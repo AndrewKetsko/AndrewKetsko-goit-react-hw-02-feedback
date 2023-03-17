@@ -8,22 +8,22 @@ import Notification from "./Notification";
 class Feedback extends React.Component {
 
     state = {
-        good: 0,
-        neutral: 0,
-        bad: 0
+        total: Object.values(this.props.state).reduce((acc, value) => acc += value, 0)
     };
 
     buttonClick = (e) => { 
-        const value = e.currentTarget.innerHTML;
-        this.setState(prev => {return { [value]: prev[value] + 1 }});
+        this.props.state[e.currentTarget.innerHTML] += 1;
+        this.setState(prev => {return { total: prev.total + 1 }});
     };
     
-    countTotalFeedback = () =>
-        Object.values(this.state).reduce((acc, value) => acc += value, 0);
+    // countTotalFeedback = () => {
+    //     // console.log(Object.values(this.props.state));
+    //     Object.values(this.props.state).reduce((acc, value) => acc += value, 0);
+    // }
     
     countPositiveFeedbackPercentage = () =>
-        this.countTotalFeedback() === 0 ?
-            0 : Math.floor(this.state.good * 100 / this.countTotalFeedback());
+        this.state.total === 0 ?
+            0 : Math.floor(this.props.state.good * 100 / this.state.total);
 
     render() {
         return <>
@@ -35,10 +35,11 @@ class Feedback extends React.Component {
             <Section
                 title={'Statistics'}
                 children={
-                    this.countTotalFeedback() > 0 ?
+                    this.state.total > 0 ?
                         <Statistics
-                            state={this.state}
-                            countTotalFeedback={this.countTotalFeedback}
+                            state={this.props.state}
+                            total={this.state.total}
+                            // countTotalFeedback={this.countTotalFeedback}
                             countPositiveFeedbackPercentage={this.countPositiveFeedbackPercentage}
                         /> :
                         <Notification message={ 'There is no feedback' } />
