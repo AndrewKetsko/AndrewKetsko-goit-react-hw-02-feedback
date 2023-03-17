@@ -18,12 +18,7 @@ export const App = () => {
         // color: '#010101'
       }}
     >
-<<<<<<< Updated upstream
-      <Feedback/>
-=======
       <Feedback state={ state } />
-      
->>>>>>> Stashed changes
     </div>
   );
 };
