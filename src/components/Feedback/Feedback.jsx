@@ -26,26 +26,37 @@ class Feedback extends React.Component {
             0 : Math.floor(this.props.state.good * 100 / this.state.total);
 
     render() {
-        return <>
+        return (
+          <>
             <Section
-                title={'Please leave feedback'}
-                children={<FeedbackOptions buttonClick={this.buttonClick} />}
+              title={'Please leave feedback'}
+              children={
+                <FeedbackOptions
+                  buttonClick={this.buttonClick}
+                  options={Object.keys(this.props.state)}
+                />
+              }
             />
 
             <Section
-                title={'Statistics'}
-                children={
-                    this.state.total > 0 ?
-                        <Statistics
-                            state={this.props.state}
-                            total={this.state.total}
-                            // countTotalFeedback={this.countTotalFeedback}
-                            countPositiveFeedbackPercentage={this.countPositiveFeedbackPercentage}
-                        /> :
-                        <Notification message={ 'There is no feedback' } />
-                }
+              title={'Statistics'}
+              children={
+                this.state.total > 0 ? (
+                  <Statistics
+                    state={this.props.state}
+                    total={this.state.total}
+                    // countTotalFeedback={this.countTotalFeedback}
+                    countPositiveFeedbackPercentage={
+                      this.countPositiveFeedbackPercentage
+                    }
+                  />
+                ) : (
+                  <Notification message={'There is no feedback'} />
+                )
+              }
             />
-        </>
+          </>
+        );
     }
 };
 
